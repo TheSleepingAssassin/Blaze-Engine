@@ -20,6 +20,9 @@ namespace Blaze
 
 		glfwMakeContextCurrent(this->handle);
 		glfwSetFramebufferSizeCallback(this->handle, framebuffer_size_callback);
+
+		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+			exit(-1);
 	}
 
 	bool Window::ShouldClose()

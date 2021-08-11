@@ -82,6 +82,25 @@ namespace Blaze
 		~Mesh();
 	};
 
+	struct CamTransform
+	{
+		glm::vec3 Translation = {0.0f, 0.0f, 0.0f};
+		glm::vec3 Rotation = {0.0f, 0.0f, 0.0f};
+		float fov = 90.0f;
+
+		glm::mat4 GetProj(float width, float height)
+		{
+			return glm::perspective(glm::radians(this->fov), width / height, 0.1f, 1000.0f);
+		}
+
+		glm::mat4 GetTransform()
+		{
+			glm::mat4 rotation = glm::toMat4(glm::quat(Rotation));
+
+			return glm::translate(glm::mat4(1.0f), Translation) * rotation;
+		}
+	};
+
 	class GameObject
 	{
 	public:
@@ -94,10 +113,26 @@ namespace Blaze
 		~GameObject();
 	};
 
+	class Renderer
+	{
+	public:
+		std::vector<GameObject *> objects;
+		CamTransform *cam;
+		int width, height;
+
+		Renderer(CamTransform *, float, float);
+		Renderer(float, float);
+		void Init(CamTransform *);
+		void Draw();
+		void AddObject(GameObject *);
+		void SetCamera(CamTransform *);
+		~Renderer();
+	};
+
 	enum TAGS
 	{
-		CUBE = 0x201,
-		PLANE = 0x202
+		CUBE = 0x12201,
+		PLANE = 0x12202
 	};
 
 	namespace DEFVALS
