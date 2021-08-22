@@ -21,7 +21,6 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		cam.Translation = {0, 0, -10};
-		cam.Rotation = {0, glfwGetTime() * 5.0f, 0};
 
 		cube.transform.Rotation = glm::vec3(glfwGetTime() * 5.0f);
 		plane.transform.Scale = {10.0f, 10.0f, 10.0f};

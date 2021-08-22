@@ -26,11 +26,15 @@ namespace Blaze
 			// printf("\t%i\n", ind[i]);
 		}
 
-		glGenVertexArrays(1, &this->va);
-		glBindVertexArray(this->va);
+		// glGenVertexArrays(1, &this->va);
+		// glBindVertexArray(this->va);
+		this->va;
+		this->va.Bind();
 		this->vb = new VBO(sizeof(vert), vert);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
-		glEnableVertexAttribArray(0);
+		// glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+		// glEnableVertexAttribArray(0);
+		this->vbl.Push<float>(3);
+		va.AddBuffer(vb, vbl);
 		this->ib = new IBO(sizeof(ind) / sizeof(ind[0]), ind);
 		glBindVertexArray(0);
 		this->vb->Unbind();

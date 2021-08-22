@@ -28,11 +28,12 @@ namespace Blaze
 	void GameObject::Draw()
 	{
 		mesh->shader->Use();
-		glBindVertexArray(mesh->va);
+		mesh->va.Bind();
 		glDrawElements(GL_TRIANGLES, mesh->ib->count, GL_UNSIGNED_INT, 0);
 	}
 
 	GameObject::~GameObject()
 	{
+		delete mesh;
 	}
 }
